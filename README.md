@@ -9,7 +9,7 @@ import cpptuples
 
 proc main =
   var x = initCPPTuple(1.cint, 2.cfloat, 3.clong)
-  echo get[cint](x)
+  assert get[cint](x) == 1
 
 main()
 ```
@@ -17,7 +17,13 @@ This creates a `CPPTuple`. The constructor can take any number of arguments.
 
 If the tuple contains two or more `cint`, you won't be able to access the `cint` element with the above syntax, so this module provides a new syntax:
 ```nim
-x[cint, 0]
+import cpptuples
+
+proc main =
+  var x = initCPPTuple(10.cint, 20.cint)
+  assert x[cint, 0] == 10
+
+main()
 ```
 
 The index (a `csize_t`) must be known at the compile-time. In other words, it must be `static`.
