@@ -27,7 +27,7 @@ main()
 ```
 
 The index (`csize_t`, starts from 0) must be known at the compile-time. In other words, it must be `static`.
-If there's no index given (e.g. `x[cint]`), it's equivalent to the 1st example.
+If there's no index given (e.g. `x[cint]`), it's equivalent to `get[cint](x)`.
 
 ### Note
 
