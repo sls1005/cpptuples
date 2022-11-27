@@ -1,6 +1,6 @@
 # CPP Tuples
 
-A Nim wrapper for C++'s `std::tuple`, the variadic `class`. However, it is not wrapped as a `type` with variadic generic parameters, because there's (currently) no such thing in Nim. Instead, it is wrapped as a type with _no_ generic parameters. The actual type is inferred by the C++ compiler.
+A Nim wrapper for C++'s `std::tuple`, the variadic `class`. However, it is not wrapped as a `type` with variadic generic parameters, because there's (currently) no such thing in Nim. Instead, it is wrapped as a type with _no_ generic parameter. The actual type is inferred by the C++ compiler.
 
 ### Example
 
@@ -13,8 +13,9 @@ proc main =
 
 main()
 ```
+This creates a `CPPTuple`. The constructor can take any number of arguments.
 
-If the tuple contains two or more `cint`, you won't be able to access the `cint` element with the above syntax, so this module provides you with a new syntax:
+If the tuple contains two or more `cint`, you won't be able to access the `cint` element with the above syntax, so this module provides a new syntax:
 ```nim
 x[cint, 0]
 ```
