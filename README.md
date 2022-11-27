@@ -1,0 +1,31 @@
+# CPP Tuples
+
+A Nim wrapper for C++'s `std::tuple`, the variadic `class`. However, it is not wrapped as a `type` with variadic generic parameters, because there's (currently) no such thing in Nim. Instead, it is wrapped as a type (named `CPPTuple`) with _no_ generic parameters. The actual type is inferred by the C++ compiler.
+
+### Example
+
+```nim
+import cpptuples
+
+proc main =
+  var x = initCPPTuple(1.cint, 2.cfloat, 3.clong)
+  echo get[cint](x)
+
+main()
+```
+
+If the tuple contains two or more `cint`, you won't be able to access the `cint` element with the above syntax, so this module provides you with a new syntax:
+```nim
+x[cint, 0]
+```
+
+The index (a `csize_t`) must be known at the compile-time. In other words, it must be `static`.
+If there's no index given (e.g. `x[cint]`), it's equivalent to the 1st example.
+
+### Note
+
++ This can only be used within a procedure or function. Initializing a global `CPPTuple` variable is NOT allowed.
+
++ This module relies on the type-inferring feature of C++. For some reason it only works with C++17 or later (Nim currently uses C++14), so if you're with a compiler other than GCC or Clang, you have to pass a flag to it (with `--passC`), telling it to use the new standard. For GCC and Clang, it is automatically done by this module (It passes `-std=gnu++17`), so you don't have to worry about that. As C++ values backward-compatibility, this should not break your code.
+
++ Please always use types from C or C++ (like `cint`) as element types for `CPPTuple`. Using a Nim type for it may lead to incorrect code generation (and compile-time errors). If you really need a 64-bit integer, import `std::int64_t` from C++'s `<cstdint>`. Also use `std::uintptr_t` in place of `int`, as a Nim `int` always has the same size as a pointer. Never use GC'ed types (like `string` or `seq`) as an element.
