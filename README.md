@@ -13,7 +13,7 @@ proc main =
 
 main()
 ```
-This creates a `CPPTuple`. The constructor can take any number of arguments.
+This creates a `CPPTuple`. The constructor takes any number of arguments.
 
 If the tuple contains two or more `cint`, you won't be able to access the `cint` element with the above syntax, so this module provides a new syntax:
 ```nim
@@ -26,7 +26,7 @@ proc main =
 main()
 ```
 
-The index (a `csize_t`) must be known at the compile-time. In other words, it must be `static`.
+The index (`csize_t`, starts from 0) must be known at the compile-time. In other words, it must be `static`.
 If there's no index given (e.g. `x[cint]`), it's equivalent to the 1st example.
 
 ### Note
