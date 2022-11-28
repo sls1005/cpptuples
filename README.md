@@ -8,7 +8,7 @@ A Nim wrapper for C++'s `std::tuple`, the variadic `class`. However, it is not w
 import cpptuples
 
 proc main =
-  var x = initCPPTuple(1.cint, 2.cfloat, 3.clong)
+  var x = initCPPTuple(cint(1), cfloat(2), clong(3))
   assert get[cint](x) == 1
 
 main()
@@ -20,7 +20,7 @@ If the tuple contains two or more `cint`, you won't be able to access the `cint`
 import cpptuples
 
 proc main =
-  var x = initCPPTuple(10.cint, 20.cint)
+  var x = initCPPTuple(cint(10), cint(20))
   assert x[cint, 0] == 10
 
 main()
