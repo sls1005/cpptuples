@@ -20,6 +20,10 @@ proc initCPPTuple*(): CPPTuple {.constructor, varargs, importcpp: "'0(@)".}
   ##     echo x.get[cint]
   ##   main()
 
+proc tupleSize*(self: CPPTuple): csize_t {.importcpp: "(std::tuple_size_v<decltype(#)>)".}
+  ## The number of elements.
+  #  `decltype` is used instead of `'1`, because the actual type is not known from Nim, but from C++.
+
 proc get*[T](t: var CPPTuple): var T {.importcpp: "(std::get<'*0>(#))".}
 
 proc get*[T](t: CPPTuple): T {.importcpp: "std::get<'0>(#)".}
@@ -27,9 +31,6 @@ proc get*[T](t: CPPTuple): T {.importcpp: "std::get<'0>(#)".}
 proc get[T](idx: csize_t, t: CPPTuple): T {.importcpp: "std::get<#>(#)".}
 
 proc get[T](idx: csize_t, t: var CPPTuple): var T {.importcpp: "(std::get<#>(#))".}
-
-proc tupleSize*(self: CPPTuple): csize_t {.importcpp: "(std::tuple_size_v<decltype(#)>)".}
-  ## The number of elements.
 
 {.pop.}
 
