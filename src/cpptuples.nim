@@ -1,7 +1,8 @@
 when not defined(cpp):
   {.error: "This can only be used with the C++ backend.".}
 elif defined(gcc) or defined(clang):
-  {.passC: "-std=gnu++17".}
+  when not defined(useDefaultCStd):
+    {.passC: "-std=gnu++17".}
 
 {.push header: "<tuple>".}
 
