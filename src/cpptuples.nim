@@ -19,11 +19,9 @@ proc initCPPTuple*(): CPPTuple {.constructor, varargs, importcpp: "'0(@)".}
   ##     var x = initCPPTuple(cint(1), cfloat(2), clong(3), cdouble(4))
   ##     echo x.get[cint]
   ##   main()
-
 proc tupleSize*(self: CPPTuple): csize_t {.importcpp: "(std::tuple_size_v<decltype(#)>)".}
   ## The number of elements.
-  #  `decltype` is used instead of `'1`, because the actual type is not known from Nim, but from C++.
-
+  #  `decltype(#)` is used instead of `'1`, because the actual type is not known from Nim, but from C++.
 proc get*[T](t: var CPPTuple): var T {.importcpp: "(std::get<'*0>(#))".}
 
 proc get*[T](t: CPPTuple): T {.importcpp: "std::get<'0>(#)".}
@@ -43,7 +41,7 @@ template `[]`*[T](self: CPPTuple, typ: typedesc[T], idx: static[csize_t]): T =
   ##     var x = initCPPTuple(cint(10), cint(20))
   ##     echo x[cint, 0] #10
   ##     echo x[cint, 1] #20
-  #    main()
+  ##   main()
   get[T](idx, self)
 
 template `[]`*[T](self: CPPTuple, typ: typedesc[T]): T =
